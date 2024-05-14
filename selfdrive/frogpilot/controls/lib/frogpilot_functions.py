@@ -13,6 +13,8 @@ from openpilot.common.params_pyx import UnknownKeyName
 from openpilot.system.hardware import HARDWARE
 from openpilot.system.version import get_short_branch, get_commit_date
 
+from openpilot.selfdrive.frogpilot.controls.lib.model_manager import MODELS_PATH
+
 CITY_SPEED_LIMIT = 25  # 55mph is typically the minimum speed for highways
 CRUISING_SPEED = 5     # Roughly the speed cars go when not touching the gas while in drive
 PROBABILITY = 0.6      # 60% chance of condition being true
@@ -170,6 +172,7 @@ class FrogPilotFunctions:
     remount_persist = ['sudo', 'mount', '-o', 'remount,rw', '/persist']
     cls.run_cmd(remount_persist, "Successfully remounted /persist as read-write.", "Failed to remount /persist.")
 
+    os.makedirs(MODELS_PATH, exist_ok=True)
     os.makedirs("/persist/params", exist_ok=True)
 
     frogpilot_boot_logo = f'{BASEDIR}/selfdrive/frogpilot/assets/other_images/frogpilot_boot_logo.png'
