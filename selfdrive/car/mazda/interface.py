@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from cereal import car, custom
 from openpilot.common.conversions import Conversions as CV
-from openpilot.selfdrive.car.mazda.values import CAR, LKAS_LIMITS
+from openpilot.selfdrive.car.mazda.values import CAR, LKAS_LIMITS, Buttons
 from openpilot.selfdrive.car import create_button_events, get_safety_config
 from openpilot.selfdrive.car.interfaces import CarInterfaceBase
 from openpilot.common.params import Params
@@ -11,6 +11,8 @@ params = Params()
 ButtonType = car.CarState.ButtonEvent.Type
 EventName = car.CarEvent.EventName
 FrogPilotButtonType = custom.FrogPilotCarState.ButtonEvent.Type
+BUTTONS_DICT = {Buttons.SET_PLUS: ButtonType.accelCruise, Buttons.SET_MINUS: ButtonType.decelCruise,
+                Buttons.RESUME: ButtonType.resumeCruise, Buttons.CANCEL: ButtonType.cancel}
 
 class CarInterface(CarInterfaceBase):
 
@@ -54,6 +56,7 @@ class CarInterface(CarInterfaceBase):
 
      # TODO: add button types for inc and dec
     ret.buttonEvents = [
+      *create_button_events(self.CS.cruise_buttons, self.CS.prev_cruise_buttons, BUTTONS_DICT),
       *create_button_events(self.CS.distance_button, self.CS.prev_distance_button, {1: ButtonType.gapAdjustCruise}),
       *create_button_events(self.CS.lkas_enabled, self.CS.lkas_previously_enabled, {1: FrogPilotButtonType.lkas}),
     ]
