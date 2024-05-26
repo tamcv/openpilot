@@ -4,6 +4,9 @@ from openpilot.common.conversions import Conversions as CV
 from openpilot.selfdrive.car.mazda.values import CAR, LKAS_LIMITS
 from openpilot.selfdrive.car import create_button_events, get_safety_config
 from openpilot.selfdrive.car.interfaces import CarInterfaceBase
+from openpilot.common.params import Params
+
+params = Params()
 
 ButtonType = car.CarState.ButtonEvent.Type
 EventName = car.CarEvent.EventName
@@ -28,6 +31,20 @@ class CarInterface(CarInterfaceBase):
       ret.minSteerSpeed = LKAS_LIMITS.DISABLE_SPEED * CV.KPH_TO_MS
 
     ret.centerToFront = ret.wheelbase * 0.41
+
+    if params.get_bool("CSLCEnabled"):
+        # Used for CEM with CSLC
+        ret.openpilotLongitudinalControl = True
+        ret.longitudinalTuning.deadzoneBP = [0.]
+        ret.longitudinalTuning.deadzoneV = [0.9]  # == 2 mph allowable delta
+        ret.stoppingDecelRate = 4.5  # == 10 mph/s
+        ret.longitudinalActuatorDelayLowerBound = 1.
+        ret.longitudinalActuatorDelayUpperBound = 2.
+
+        ret.longitudinalTuning.kpBP = [8.94, 7.2, 28.]  # 8.94 m/s == 20 mph
+        ret.longitudinalTuning.kpV = [0., 4., 2.]  # set lower end to 0 since we can't drive below that speed
+        ret.longitudinalTuning.kiBP = [0.]
+        ret.longitudinalTuning.kiV = [0.1]
 
     return ret
 
