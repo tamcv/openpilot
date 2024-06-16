@@ -77,8 +77,8 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *alertVolumeControlToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(alertVolumeControlToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
-          toggle->setVisible(alertVolumeControlKeys.find(key.c_str()) != alertVolumeControlKeys.end());
+        for (auto &[key, t] : toggles) {
+          t->setVisible(alertVolumeControlKeys.find(key.c_str()) != alertVolumeControlKeys.end());
         }
       });
       toggle = alertVolumeControlToggle;
@@ -93,14 +93,14 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *customAlertsToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(customAlertsToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
+        for (auto &[key, t] : toggles) {
           std::set<QString> modifiedCustomAlertsKeys = customAlertsKeys;
 
           if (!hasBSM) {
             modifiedCustomAlertsKeys.erase("LoudBlindspotAlert");
           }
 
-          toggle->setVisible(modifiedCustomAlertsKeys.find(key.c_str()) != modifiedCustomAlertsKeys.end());
+          t->setVisible(modifiedCustomAlertsKeys.find(key.c_str()) != modifiedCustomAlertsKeys.end());
         }
       });
       toggle = customAlertsToggle;
@@ -109,8 +109,8 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *customThemeToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(customThemeToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
-          toggle->setVisible(customThemeKeys.find(key.c_str()) != customThemeKeys.end());
+        for (auto &[key, t] : toggles) {
+          t->setVisible(customThemeKeys.find(key.c_str()) != customThemeKeys.end());
         }
       });
       toggle = customThemeToggle;
@@ -135,14 +135,14 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *customUIToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(customUIToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
+        for (auto &[key, t] : toggles) {
           std::set<QString> modifiedCustomOnroadUIKeys = customOnroadUIKeys;
 
           if (!hasOpenpilotLongitudinal && !hasAutoTune) {
             modifiedCustomOnroadUIKeys.erase("DeveloperUI");
           }
 
-          toggle->setVisible(modifiedCustomOnroadUIKeys.find(key.c_str()) != modifiedCustomOnroadUIKeys.end());
+          t->setVisible(modifiedCustomOnroadUIKeys.find(key.c_str()) != modifiedCustomOnroadUIKeys.end());
         }
       });
       toggle = customUIToggle;
@@ -175,10 +175,10 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *developerUIToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(developerUIToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
+        for (auto &[key, t] : toggles) {
           std::set<QString> modifiedDeveloperUIKeys  = developerUIKeys ;
 
-          toggle->setVisible(modifiedDeveloperUIKeys.find(key.c_str()) != modifiedDeveloperUIKeys.end());
+          t->setVisible(modifiedDeveloperUIKeys.find(key.c_str()) != modifiedDeveloperUIKeys.end());
         }
       });
       toggle = developerUIToggle;
@@ -218,14 +218,14 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *modelUIToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(modelUIToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
+        for (auto &[key, t] : toggles) {
           std::set<QString> modifiedModelUIKeysKeys = modelUIKeys;
 
           if (!hasOpenpilotLongitudinal) {
             modifiedModelUIKeysKeys.erase("HideLeadMarker");
           }
 
-          toggle->setVisible(modifiedModelUIKeysKeys.find(key.c_str()) != modifiedModelUIKeysKeys.end());
+          t->setVisible(modifiedModelUIKeysKeys.find(key.c_str()) != modifiedModelUIKeysKeys.end());
         }
       });
       toggle = modelUIToggle;
@@ -240,8 +240,8 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *qolToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(qolToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
-          toggle->setVisible(qolKeys.find(key.c_str()) != qolKeys.end());
+        for (auto &[key, t] : toggles) {
+          t->setVisible(qolKeys.find(key.c_str()) != qolKeys.end());
         }
       });
       toggle = qolToggle;
@@ -294,8 +294,8 @@ FrogPilotVisualsPanel::FrogPilotVisualsPanel(SettingsWindow *parent) : FrogPilot
       FrogPilotParamManageControl *screenToggle = new FrogPilotParamManageControl(param, title, desc, icon, this);
       QObject::connect(screenToggle, &FrogPilotParamManageControl::manageButtonClicked, this, [this]() {
         openParentToggle();
-        for (auto &[key, toggle] : toggles) {
-          toggle->setVisible(screenKeys.find(key.c_str()) != screenKeys.end());
+        for (auto &[key, t] : toggles) {
+          t->setVisible(screenKeys.find(key.c_str()) != screenKeys.end());
         }
       });
       toggle = screenToggle;

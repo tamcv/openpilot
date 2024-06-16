@@ -469,6 +469,12 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"WarningSoftVolume", PERSISTENT | FROGPILOT_STORAGE | FROGPILOT_VISUALS},
     {"WheelIcon", PERSISTENT | FROGPILOT_STORAGE | FROGPILOT_VISUALS},
     {"WheelSpeed", PERSISTENT | FROGPILOT_STORAGE | FROGPILOT_VISUALS},
+    
+    {"RecordRoad", PERSISTENT},
+    {"TorqueInterceptorEnabled", PERSISTENT},
+    {"RadarInterceptorEnabled", PERSISTENT},
+    {"NoMRCC", PERSISTENT},
+    {"NoFSC", PERSISTENT},
 };
 
 } // namespace
