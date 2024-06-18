@@ -12,8 +12,6 @@ from openpilot.common.realtime import DT_CTRL
 from openpilot.selfdrive.locationd.calibrationd import MIN_SPEED_FILTER
 from openpilot.system.version import get_short_branch
 
-params = Params()
-params_memory = Params("/dev/shm/params")
 
 AlertSize = log.ControlsState.AlertSize
 AlertStatus = log.ControlsState.AlertStatus
@@ -263,7 +261,7 @@ def no_gps_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.SubMaster, m
     Priority.LOWER, VisualAlert.none, AudibleAlert.none, .2, creation_delay=300.)
 
 def torque_nn_load_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.SubMaster, metric: bool, soft_disable_time: int) -> Alert:
-  model_name = params.get("NNFFModelName", encoding='utf-8')
+  model_name = Params().get("NNFFModelName", encoding='utf-8')
   if model_name == "":
     return Alert(
       "NNFF Torque Controller not available",
@@ -367,7 +365,7 @@ def holiday_alert(CP: car.CarParams, CS: car.CarState, sm: messaging.SubMaster, 
     11: ("Happy World Frog Day! 🐸", "worldFrogDayAlert"),
   }
 
-  theme_id = params_memory.get_int("CurrentHolidayTheme")
+  theme_id = Params("/dev/shm/params").get_int("CurrentHolidayTheme")
   message, alert_type = holiday_messages.get(theme_id, ("", ""))
 
   return Alert(

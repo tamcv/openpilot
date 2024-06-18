@@ -9,6 +9,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QMouseEvent>
+#include <QPainterPath>
 
 #include "common/swaglog.h"
 #include "common/timing.h"
